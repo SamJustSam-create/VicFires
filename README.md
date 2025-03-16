@@ -141,4 +141,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **discord.py**: The official Python wrapper for the Discord API.
 - **BeautifulSoup4**: A library for parsing HTML and XML documents.
 - **Requests**: A simple HTTP library for making requests to external websites.
-```
