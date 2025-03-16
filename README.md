@@ -1,68 +1,3 @@
-**# Emergency Pager Discord Bot
-
-## Description
-This bot monitors a Victorian Emergency Service pager website and alerts users based on specified Capcodes.
-
-## Setup
-
-1. **Clone the repository**:
-git clone https://github.com/SamJustSam-create/VicFires.git
-
-2. **Install dependencies**:
-pip install discord.py beautifulsoup4 requests
-
-3. **Set up your config file**:
-- Create `config/config.json` and insert your bot token:
-```json
-{
-    "TOKEN": "YOUR_DISCORD_BOT_TOKEN"
-}
-
-4. **Run the bot**:
-python3 bot.py
-
-5. **Commands**:
-/addcapcode <capcode> - Add a Capcode to monitor.
-/setalertchannel <#channel> - Set the alert channel for this server.
-/setmentions @role - Set a role/user to mention when an alert occurs.
-
----
-
-### **7. Optional Modularization**
-
-If your bot grows, you can split functionality into cogs (modularized components). For example, the Capcode management can be in a separate cog (`capcodes.py`).
-
-**Example `cogs/capcodes.py`:**
-
-```python
-from discord.ext import commands
-import sqlite3
-
-class Capcodes(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
-    @commands.command()
-    async def addcapcode(self, ctx, capcode: str):
-        guild_id = ctx.guild.id
-        conn = sqlite3.connect("data/bot_data.db")
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO capcodes (guild_id, capcode) VALUES (?, ?)", (guild_id, capcode))
-        conn.commit()
-        conn.close()
-        await ctx.send(f"✅ Capcode `{capcode}` added for this server!")
-
-def setup(bot):
-    bot.add_cog(Capcodes(bot))
-
-Then, load it in the main bot file:
-
-@bot.event
-async def on_ready():
-    bot.load_extension('cogs.capcodes')
-**Certainly! Here's a detailed `README.md` file for your Discord bot project:
-
-```markdown
 # Emergency Pager Discord Bot
 
 ## Overview
@@ -95,8 +30,8 @@ pip install discord.py beautifulsoup4 requests
 ### 1. Clone the Repository
 Clone the bot's repository to your local machine:
 ```bash
-git clone https://github.com/yourusername/emergency-pager-bot.git
-cd emergency-pager-bot
+git clone https://github.com/SamJustSam-create/VicFires.git
+cd VicFires
 ```
 
 ### 2. Configure Your Bot Token
@@ -146,7 +81,7 @@ Example:
 ```
 
 ### 6. Bot Operation
-- **Fetching Pager Messages**: The bot fetches new pager messages from the [Victorian Emergency Service Pager](https://mazzanet.net.au/cfa/pager-cfa.php) website every few seconds.
+- **Fetching Pager Messages**: The bot fetches new pager messages from [mazzanet.net.au](https://mazzanet.net.au/cfa/pager-cfa.php) website every few seconds.
 - **Alert Notification**: When a pager message is detected for a Capcode the bot is tracking, it parses the message and sends a detailed alert to the configured Discord channel with an embedded message that includes:
   - Incident Type
   - Incident Description
@@ -207,12 +142,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **BeautifulSoup4**: A library for parsing HTML and XML documents.
 - **Requests**: A simple HTTP library for making requests to external websites.
 ```
-
----
-
-### **How to Customize the README**
-
-- **Replace the `git clone` URL**: Make sure to replace `https://github.com/yourusername/emergency-pager-bot.git` with the actual URL of your repository.
-- **Further Explanation**: Add more sections if you plan to add additional features in the future, like logging, error handling, or different ways of setting up Capcodes.
-
-This `README.md` file provides a complete guide for setting up and running the bot, along with an overview of the project structure and functionality.
