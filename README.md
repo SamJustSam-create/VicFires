@@ -39,7 +39,7 @@ cd VicFires
 2. Create a new application (if you don't already have one).
 3. Navigate to the **Bot** section and copy your bot token.
 
-Create a `config/config.json` file in your project directory and paste the following content:
+Open the config.json file @ `config/config.json` file in your project directory and paste the following content:
 ```json
 {
     "TOKEN": "YOUR_DISCORD_BOT_TOKEN"
